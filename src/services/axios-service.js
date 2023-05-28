@@ -2,7 +2,7 @@ import axios from 'axios'
 import { stringify } from 'qs'
 
 const axiosClient = axios.create({
-  baseURL: 'http://localhost:5000/relief-app/v1/',
+  baseURL: 'http://localhost:3000/relief-app/v1/',
 })
 
 axiosClient.interceptors.request.use(

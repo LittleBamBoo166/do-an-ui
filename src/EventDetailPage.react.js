@@ -32,4 +32,5 @@ function EventDetailPage() {
   return <EventPage></EventPage>
 }
 
+
 export default EventDetailPage;

@@ -129,24 +129,7 @@ function SearchSection() {
               name="types"
               value="STORM"
             />
-            <Form.Checkbox
-              isInline
-              label="Lũ lụt"
-              name="types"
-              value="FLOOD"
-            />
-            <Form.Checkbox
-              isInline
-              label="Sạt lở đất"
-              name="types"
-              value="LANDSLIDE"
-            />
-            <Form.Checkbox
-              isInline
-              label="Sóng thần"
-              name="types"
-              value="TSUNAMI"
-            />
+           
           </Form.Group>
         </Grid.Col>
         <Grid.Col width={4} sm={12} lg={4}>

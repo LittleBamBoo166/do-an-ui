@@ -40,6 +40,9 @@ import BlogPage from "./components/BlogPage.react";
 import "tabler-react/dist/Tabler.css";
 import "./App.css";
 import AdminAddEventPage from "./pages/event/AdminAddEventPage.react";
+import SponsorDonationPostPage from "./pages/event/SponsorDonationPostPage";
+import SponsorPost from "./pages/event/SponsorDonationPostPage";
+import { DetailDonation } from "./pages/event";
 
 type Props = {||};
 
@@ -73,6 +76,8 @@ function App(props: Props): React.Node {
           <Route exact path="/add-events" component={AdminAddEventPage}/>
           <Route exact path="/edit-events/:id" component={AdminEditEventPage}/>
           
+          <Router exact path ="/donation" component={SponsorPost}/>
+          <Route exact path= "/donation/:id" component={DetailDonation}/>
           <Route component={Error404} />
         </Switch>
       </Router>
