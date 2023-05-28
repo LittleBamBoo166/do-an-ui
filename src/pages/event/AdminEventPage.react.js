@@ -28,7 +28,6 @@ import {
 } from "tabler-react";
 import dayjs from "dayjs";
 
-import EventData from "../../data/event/EventData";
 import adminEventService from "../../services/admin/admin-event.service";
 
 function AdminEventPage() {
@@ -49,7 +48,11 @@ function AdminEventPage() {
   });
 
   if (!event) {
-    return <Error400Page/>
+    return (
+      <Grid.Col width={12}>
+        <Header.H1><Icon prefix="fe" name="sun" className="p-5"/><small>Không có sự kiện thiên tai.</small></Header.H1>
+      </Grid.Col>
+    );
   }
 
   let closedAt = 'Chưa cập nhật';

@@ -40,6 +40,7 @@ import BlogPage from "./components/BlogPage.react";
 import "tabler-react/dist/Tabler.css";
 import "./App.css";
 import AdminAddEventPage from "./pages/event/AdminAddEventPage.react";
+import { LoEventSubscribePage, LoEventsPage, LoRescueActionPage } from "./pages/event";
 
 type Props = {||};
 
@@ -55,19 +56,23 @@ function App(props: Props): React.Node {
           <Route exact path="/403" component={Error403} />
           <Route exact path="/404" component={Error404} />
           <Route exact path="/500" component={Error500} />
-          <Route exact path="/503" component={Error503} /> 
+          <Route exact path="/503" component={Error503} />
 
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/logout" component={LogoutPage} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/about" component={AboutUsPage} />
 
-
-          <Route exact path="/user-management" component={AdminUsersPage}/>
-          <Route exact path="/user-management/local-officers" component={AdminLocalOfficerPage}/>
-
           <Route exact path="/events" component={EventsPage}/>
           <Route exact path="/events/:id" component={EventPage}/>
+
+          <Route exact path="/local-officers/events" component={LoEventsPage}/>
+          <Route exact path="/local-officers/rescue-actions" component={LoRescueActionPage}/>
+          <Route exact path="/lo-event-subscriptions/:id" component={LoEventSubscribePage}/>
+
+          <Route exact path="/user-management" component={AdminUsersPage}/>
+          <Route exact path="/local-officers" component={AdminLocalOfficerPage}/>
+
           <Route exact path="/event-management" component={AdminEventsPage}/>
           <Route exact path="/event-management/:id" component={AdminEventPage}/>
           <Route exact path="/add-events" component={AdminAddEventPage}/>

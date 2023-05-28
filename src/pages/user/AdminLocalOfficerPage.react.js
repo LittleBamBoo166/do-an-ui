@@ -42,8 +42,7 @@ function UserRow(query) {
     async function getUsers() {
       const query = {};
       const response = await adminUserService.getLocalOfficerUser(query);
-      console.log(response);
-      setUsers(response.data.data);
+      setUsers(response.data);
     };
     if (!users)
       getUsers();
@@ -55,27 +54,11 @@ function UserRow(query) {
     );
   }
 
-  console.log(users);
+  function onClick () {
+    alert('Sucess');
+  }
 
   return users.map((user) => {
-    let userType = '';
-    switch (user.userType) {
-      case 'LOCAL_OFFICER':
-        userType = 'Cán bộ xã';
-        break;
-      case 'SPONSOR':
-        userType = 'Mạnh thường quân';
-        break;
-      case 'RESCUE_TEAM':
-        userType = 'Đội cứu trợ';
-        break;
-      case 'ADMIN':
-        userType = 'Administrator';
-        break;      
-      default:
-        break;
-    }
-
     let userStatus = '';
     switch (user.userStatus) {
       case 'ACTIVE':
@@ -102,8 +85,13 @@ function UserRow(query) {
         <Table.Col>{user.email}</Table.Col>
         <Table.Col>{phoneNumber}</Table.Col>
         <Table.Col>{user.address}</Table.Col>
-        <Table.Col>{userType}</Table.Col>
         <Table.Col>{userStatus}</Table.Col>
+        <Table.Col>
+          {
+            user.isCurrentLocalOfficer ? '' : <Button colors="info" href={`event-management`} onClick={onClick}><Icon prefix="fe" name={"check"}/>
+            </Button>
+          }
+        </Table.Col>
       </Table.Row>
     )
   })
@@ -237,11 +225,9 @@ function AdminLocalOfficerPage() {
                     Địa chỉ
                   </Table.ColHeader>
                   <Table.ColHeader>
-                    Loại
-                  </Table.ColHeader>
-                  <Table.ColHeader>
                     Trạng thái
                   </Table.ColHeader>
+                  <Table.ColHeader>Phê duyệt</Table.ColHeader>
                 </Table.Row>
               </Table.Header>
               <Table.Body>

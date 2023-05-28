@@ -27,21 +27,53 @@ import {
 } from "tabler-react";
 import dayjs from "dayjs";
 
-import EventData from "../../data/event/EventData";
+import adminEventService from "../../services/admin/admin-event.service";
 
 function EventPage() {
-  const [eventId] = window.location.pathname.split('/').slice(-1);
-  const event = EventData.events.filter((event) => event.id === eventId)[0];
+  const [id] = window.location.pathname.split('/').slice(-1);
+  const [event, setEvent] = React.useState(null);
+
+  React.useEffect(() => {
+    async function getEvent() {
+      const params = {
+        id: id,
+      };
+      const response = await adminEventService.getEvent(params);
+      setEvent(response.data);
+    };
+
+    if (!event)
+      getEvent();
+  });
+
+  if (!event) {
+    return (
+      <Grid.Col width={12}>
+        <Header.H1><Icon prefix="fe" name="sun" className="p-5"/><small>Không có sự kiện thiên tai.</small></Header.H1>
+      </Grid.Col>
+    );
+  }
+
+  let closedAt = 'Chưa cập nhật';
+  if (event.endDate) {
+    closedAt = dayjs(event.endDate).format('DD-MM-YYYY');
+  }
+
+  let closedBy = 'Chưa cập nhật';
+  if (event.closedBy) {
+    closedBy = event.closedBy.fullName;
+  }
 
   return (
     <SiteWrapper>
       <Page.Content title={event.name}>
         <Page.Header>
           <div className="d-flex flex-row">
-            <div className="p-2 text-secondary"><Icon prefix="fe" name="user" /> Đăng bởi: {event.closedBy.fullName}</div>
+            <div className="p-2 text-secondary"><Icon prefix="fe" name="user" /> Đăng bởi: {event.createdBy.fullName}</div>
             <div className="p-2 text-secondary"><Icon prefix="fe" name="clock" /> Ngày đăng: {dayjs(event.createdAt).format('DD-MM-YYYY')}</div>
             <div className="p-2 text-secondary"><Icon prefix="fe" name="clock" /> Thời gian bắt đầu cứu trợ: {dayjs(event.startDate).format('DD-MM-YYYY')}</div>
-            <div className="p-2 text-secondary"><Icon prefix="fe" name="clock" /> Thời gian kết thúc cứu trợ: {dayjs(event.endDate).format('DD-MM-YYYY')}</div>
+            <div className="p-2 text-secondary"><Icon prefix="fe" name="clock" /> Thời gian kết thúc cứu trợ: {closedAt}</div>
+            <div className="p-2 text-secondary"><Icon prefix="fe" name="clock" /> Cập nhật bởi: {closedBy}</div>
           </div>
         </Page.Header>
         <Grid.Row cards={true}>
@@ -68,10 +100,10 @@ function EventPage() {
                   icon="home"
                   header={
                     <a href="#">
-                      {event.lOEventSubscriptions.length} <small>Xã bị ảnh hưởng</small>
+                      {event.loSubscriptionCount} <small>Xã bị ảnh hưởng</small>
                     </a>
                   }
-                  footer={"12 xã đang chờ được cứu trợ"}
+                  // footer={"12 xã đang chờ được cứu trợ"}
                 />
               </Grid.Col>
 
@@ -81,10 +113,10 @@ function EventPage() {
                   icon="flag"
                   header={
                     <a href="#">
-                      14 <small>Hoạt động cứu trợ</small>
+                      {event.rtSubscriptionCount} <small>Hoạt động cứu trợ</small>
                     </a>
                   }
-                  footer={"4 hoạt động cứu trợ đã hoàn thành"}
+                  // footer={"4 hoạt động cứu trợ đã hoàn thành"}
                 />
               </Grid.Col>
             </Grid.Row>
@@ -96,10 +128,10 @@ function EventPage() {
                   icon="heart"
                   header={
                     <a href="#">
-                      {event.lOEventSubscriptions.map((lo) => lo.householdsNumber)} <small>Hộ dân bị ảnh hưởng</small>
+                      {event.houseHoldNumberCount} <small>Hộ dân bị ảnh hưởng</small>
                     </a>
                   }
-                  footer={"63 hộ dân đã nhận được cứu trợ"}
+                  // footer={"63 hộ dân đã nhận được cứu trợ"}
                 />
               </Grid.Col>
 
@@ -109,19 +141,18 @@ function EventPage() {
                   icon="dollar-sign"
                   header={
                     <a href="#">
-                      53 <small>Mạnh thường quân</small>
+                      {event.donationCount} <small>Mạnh thường quân</small>
                     </a>
                   }
-                  footer={"Số tiền quyên góp: 56,040,000 đồng"}
                 />
               </Grid.Col>
             </Grid.Row>
 
             <Grid.Row>
               <Grid.Col width={12}>
-                <Button color="blue" icon="arrow-right" onClick={() => {
-                  window.location.replace('http://localhost:3000/events/bbbc5212-6df4-40ab-8715-6b64c74338e7/donation-posts')
-                }}>Xem các bài đăng kêu gọi quyên góp</Button>
+                <Button color="blue" icon="arrow-left" onClick={() => {
+                  window.location.replace(`http://localhost:3000/`)
+                }}>Quay lại</Button>
               </Grid.Col>
             </Grid.Row>
             

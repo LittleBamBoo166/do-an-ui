@@ -264,7 +264,7 @@ class SiteWrapper extends React.Component<Props, State> {
           { value: "Danh sách người dùng", to: "/user-management", LinkComponent: withRouter(NavLink) },
           {
             value: "Cán bộ xã",
-            to: "/user-management/local-officers",
+            to: "/local-officers",
             LinkComponent: withRouter(NavLink),
           },
         ]

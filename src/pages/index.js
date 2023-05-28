@@ -12,8 +12,8 @@ import Email from "./Email.react";
 import ProfilePage from "./ProfilePage.react";
 import AboutUsPage from "./AboutUsPage.react";
 import LogoutPage from "./LogoutPage.react";
-import { GuestDashboardPage, SponsorDashboardPage, AdminDashboardPage } from "./dashboard";
-import { EventPage, EventsPage, AdminEventsPage, AdminEventPage, AdminEditEventPage } from "./event";
+import { GuestDashboardPage, SponsorDashboardPage, AdminDashboardPage, LocalOfficerDashboardPage } from "./dashboard";
+import { EventPage, EventsPage, AdminEventsPage, AdminEventPage, AdminEditEventPage, LoEventSubscribePage } from "./event";
 import { AdminUsersPage, AdminLocalOfficerPage } from "./user"
 
 export {
@@ -21,12 +21,14 @@ export {
   LoginPage,
   LogoutPage,
   RegisterPage,
+
   Error400,
   Error401,
   Error403,
   Error404,
   Error500,
   Error503,
+
   Empty,
   Email,
   ProfilePage,
@@ -41,8 +43,10 @@ export {
   AdminUsersPage,
   AdminLocalOfficerPage,
 
+  LoEventSubscribePage,
+
   GuestDashboardPage,
   SponsorDashboardPage,
   AdminDashboardPage,
-  
+  LocalOfficerDashboardPage,
 };

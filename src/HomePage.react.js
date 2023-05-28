@@ -26,7 +26,7 @@ import C3Chart from "react-c3js";
 import SiteWrapper from "./SiteWrapper.react";
 
 import { AuthService, LocationService } from "./services";
-import { GuestDashboardPage, SponsorDashboardPage, AdminDashboardPage } from "./pages";
+import { GuestDashboardPage, SponsorDashboardPage, AdminDashboardPage, LocalOfficerDashboardPage } from "./pages";
 
 function Home() {
   const user = AuthService.getCurrentUser();
@@ -35,7 +35,8 @@ function Home() {
     return <GuestDashboardPage></GuestDashboardPage>;
   if (user.userType.includes("ADMIN"))  
     return <AdminDashboardPage></AdminDashboardPage>
-
+  if (user.userType.includes("LOCAL_OFFICER"))
+    return <LocalOfficerDashboardPage/>
   return <SponsorDashboardPage></SponsorDashboardPage>
 }
 
