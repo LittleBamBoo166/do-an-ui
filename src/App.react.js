@@ -43,6 +43,7 @@ import AdminAddEventPage from "./pages/event/AdminAddEventPage.react";
 import SponsorDonationPostPage from "./pages/event/SponsorDonationPostPage";
 import SponsorPost from "./pages/event/SponsorDonationPostPage";
 import { DetailDonation } from "./pages/event";
+import DetailDonationPost from "./pages/event/SponsorDonationPostDetail.react";
 
 type Props = {||};
 
@@ -77,7 +78,7 @@ function App(props: Props): React.Node {
           <Route exact path="/edit-events/:id" component={AdminEditEventPage}/>
           
           <Router exact path ="/donation" component={SponsorPost}/>
-          <Route exact path= "/donation/:id" component={DetailDonation}/>
+          <Route exact path= "/donation/:id" component={DetailDonationPost}/>
           <Route component={Error404} />
         </Switch>
       </Router>

@@ -28,17 +28,15 @@ import {
   BlogCard,
   List,
 } from "tabler-react";
-import Router, { useRouter } from 'next/router';
+import { Router } from "react-router-dom/cjs/react-router-dom.min";
 import  { useEffect, useState } from 'react';
 const DetailDonationPost = () => {
-  const router = useRouter()
+  const [eventId] = window.location.pathname.split('/').slice(-1);
   const [detailEvent, setDetailEvent] = useState({})
-
-  const { eventId } = router.query
 
   const fetchDetailEvent = async () => {
     const data = await sponorDonationpostService.getDetailDonation({ id: eventId })
-    setDetailEvent(data.data.data)
+    setDetailEvent(data.data)
   }
 
   useEffect(() => {
@@ -46,7 +44,7 @@ const DetailDonationPost = () => {
   },[eventId])
 return(
   <SiteWrapper>
-  <Page.Content title={detailEvent.status}>
+  <Page.Content title="BÀI ĐĂNG KÊU GỌI QUYÊN GÓP">
     {/* <Page.Header>
       <div className="d-flex flex-row">
         <div className="p-2 text-secondary"><Icon prefix="fe" name="clock" /> Ngày đăng: {dayjs().format('DD-MM-YYYY')}</div>
@@ -78,10 +76,11 @@ return(
               icon="home"
               header={
                 <a href="#">
-                  {detailEvent.necessariesList} <small>Danh sách nhu yếu phẩm kêu gọi</small>
+                  <small>Danh sách nhu yếu phẩm kêu gọi : {detailEvent.necessariesList}</small>
                 </a>
+                
               }
-              footer={"12 xã đang chờ được cứu trợ"}
+              footer={"Danh sách nhu yếu phâm đôi cứu trợ kêu gọi quyên góp cho đợt cứu trợ"}
             />
           </Grid.Col>
 
@@ -91,22 +90,50 @@ return(
               icon="flag"
               header={
                 <a href="#">
-                  14 <small>Hoạt động cứu trợ</small>
+                 <small>Số tiền kêu gọi cứu trợ : {detailEvent.moneyNeed}</small>
                 </a>
               }
-              footer={"4 hoạt động cứu trợ đã hoàn thành"}
+              footer={"Số tiền  đôi cứu trợ kêu gọi quyên góp cho đợt cứu trợ"}
             />
           </Grid.Col>
-        </Grid.Row>
-
-      
-
-        <Grid.Row>
-          <Grid.Col width={12}>
-            <Button color="blue" icon="arrow-right" onClick={() => {
-              window.location.replace('http://localhost:3000/events/bbbc5212-6df4-40ab-8715-6b64c74338e7/donation-posts')
-            }}>Xem các bài đăng kêu gọi quyên góp</Button>
+          <Grid.Col width={6}>
+            <StampCard
+              color="yellow"
+              icon="flag"
+              header={
+                <a href="#">
+                 <small>Trạng thái của bài đăng : {detailEvent.status}</small>
+                </a>
+              }
+              // footer={"Số tiền  đôi cứu trợ kêu gọi quyên góp cho đợt cứu trợ"}
+            />
           </Grid.Col>
+          <Grid.Col width={6}>
+            <StampCard
+              color="yellow"
+              icon="flag"
+              header={
+                <a href="#">
+                 <small>Thời hạn quyên góp :{dayjs(detailEvent.deadline).format('DD-MM-YYYY')}</small>
+                </a>
+              }
+              footer={"Thời hạn quyên góp cho đợt cứu trợ"}
+            />
+          </Grid.Col>
+          <Grid.Col width={12}>
+              <div className="d-flex">
+              <Button
+               RootComponent="App" 
+               color="primary" 
+               size="sm"
+               onClick={() => {
+                 window.location.replace(`http://localhost:3001/donation`)
+               }}
+                >
+                Quyên góp
+              </Button>
+              </div>
+            </Grid.Col>
         </Grid.Row>
         
       </Grid.Col>
